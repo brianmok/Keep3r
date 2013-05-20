@@ -18,6 +18,8 @@
 #include <time.h>
 #include <sys/time.h>
 
+#define ACCELERATION 0
+
 using namespace cv;
 //initial min and max HSV filter values.
 //these will be changed using trackbars
@@ -59,9 +61,10 @@ const string trackbarWindowName = "Trackbars";
 
 int x_prev = 0;
 int y_prev = 0;
-float vx = 0;
-float vy = 0;
-float vx_m = 0;
+float vx_prev = 0;
+float vy_prev = 0;
+float ax_m = 0;
+float ay_m = 0;
 
 struct timeval start, prev_frame_time;
 float dt = 0;
@@ -128,9 +131,9 @@ void drawObject(int x, int y,Mat &frame)
 	line(frame,Point(x-5,y),Point(x-25,y),Scalar(0,255,0),2);
 	line(frame,Point(x+5,y),Point(x+25,y),Scalar(0,255,0),2);
   
-  line(frame, Point(x,y), Point(x+vx,y+vy), Scalar(0,255,0), 2);
+  line(frame, Point(x,y), Point(x+vx_prev,y+vy_prev), Scalar(0,255,0), 2);
   
-	putText(frame,intToString(x)+","+intToString(y) + " -- " + floatToString(vx)+","+floatToString(vy) + "--" + floatToString(dt),
+	putText(frame,intToString(x)+","+intToString(y) + " -- " + floatToString(vx_prev)+","+floatToString(vy_prev) + "--" + floatToString(dt),
           Point(x,y+30),1,1,Scalar(0,255,0),2);
   
 }
@@ -270,28 +273,64 @@ int main(int argc, char* argv[])
         
         prev_frame_time = frame_time;
         
-        float filter = 0;
+        float filter = kickInProgress ? .5 : 0;
         
-        vx = filter*vx + (1 - filter)*(x - x_prev)/dt;
-        vy = filter*vy + (1 - filter)*(y - y_prev)/dt;
+        float vx = filter*vx_prev + (1 - filter)*(x - x_prev)/dt;
+        float vy = filter*vy_prev + (1 - filter)*(y - y_prev)/dt;
         
         float y_m = (FRAME_HEIGHT-y)*metersPerPixel;
         float vy_m = vy*metersPerPixel;
         
-        float t = (TOTAL_LENGTH - y_m) / -vy_m;
-        
-        float vfilter = 0;
-        
+        //        float vxfilter = kickInProgress ? .5 : 0;
+        //        vx_m = vxfilter*vx_m + (1-vxfilter)*vx*metersPerPixel;
         float x_m = x*metersPerPixel;
-        vx_m = vfilter*vx_m + (1-vfilter)*vx*metersPerPixel;
+        float vx_m = vx*metersPerPixel;
         
-        float x_f = x_m + vx_m*t;
+        float t = 0;
+        float x_f = 0;
+        if (ACCELERATION)
+        {
+          float afilter = kickInProgress ? .5 : 0;
+          ax_m = afilter*ax_m + (1-afilter)* (vx - vx_prev)/dt * metersPerPixel;
+          ay_m = afilter*ay_m + (1-afilter)* (vy - vy_prev)/dt * metersPerPixel;
+          
+          float a = .5*ay_m;
+          float b = vy_m;
+          float c = y_m - TOTAL_LENGTH;
+          float delta = sqrt(b*b - 4*a*c);
+          
+          float t1 = (-b+delta)/(2*a);
+          float t2 = (-b-delta)/(2*a);
+          
+          if (t1 > 0)
+            t = t1;
+          else if (t2 > 0)
+            t = t2;
+          else
+            t = 0;
+          
+          x_f = x_m + vx_m*t + .5*ax_m*t*t;
+        }
+        else
+        {
+          t = (TOTAL_LENGTH - y_m) / -vy_m;
+          x_f = x_m + vx_m*t;
+        }
         
-        if (-vy > 20)
+        if (-vy > 20) // fast enough to potentially be a kick
+        {
+          if (!kickInProgress)
+            kickInProgress = true;
+          
           printf("%d: x=(%d,%d)\t v=(%.2f,%.2f)\t y,vy=%.02f,%.02f\t xf=%.02fm @ %.02fs\n", frame_num, x,y, vx,vy, y_m,vy_m, x_f, t);
+        }
+        else
+          kickInProgress = false;
         
         x_prev = x;
         y_prev = y;
+        vx_prev = vx;
+        vy_prev = vy;
       }
     }
     
@@ -309,44 +348,3 @@ int main(int argc, char* argv[])
   
 	return 0;
 }
-
-
-
-/*
- float vx_new = filter*vx + (1 - filter)*(x - x_prev)/dt;
- float vy_new = filter*vy + (1 - filter)*(y - y_prev)/dt;
- 
- //        float ax_m = (vx_new - vx)/dt * metersPerPixel;
- //        float ay_m = (vy_new - vy)/dt * metersPerPixel;
- 
- vx = vx_new;
- vy = vy_new;
- 
- float y_m = (FRAME_HEIGHT-y)*metersPerPixel;
- float vy_m = vy*metersPerPixel;
- 
- float a = .5*ay_m;
- float b = vy_m;
- float c = y_m - TOTAL_LENGTH;
- float delta = sqrt(b*b - 4*a*c);
- 
- float t1 = (-b+delta)/(2*a);
- float t2 = (-b-delta)/(2*a);
- 
- float t;
- if (t1 > 0)
- t = t1;
- else if (t2 > 0)
- t = t2;
- else
- t = 0;
- 
- float vfilter = 0;
- 
- float x_m = x*metersPerPixel;
- vx_m = vfilter*vx_m + (1-vfilter)*vx*metersPerPixel;
- 
- float x_f = x_m + vx_m*t + .5*ax_m*t*t;
- 
- if (-vy > 20)
- printf("%d: x=(%d,%d)\t v=(%.2f,%.2f)\t y,vy=%.02f,%.02f\t xf=%.02fm @ %.02fs\t a=(%.02f, %.02f)\n", frame_num, x,y, vx,vy, y_m,vy_m, x_f, t, ax_m,ay_m);*/
