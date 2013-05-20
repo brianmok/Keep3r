@@ -1,6 +1,6 @@
 //objectTrackingTutorial.cpp
 
-//Written by  Kyle Hounslow 2013
+//Original tracking code written by  Kyle Hounslow 2013, from http://www.youtube.com/watch?v=bSeFrPrqZ2A
 
 //Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software")
 //, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -8,29 +8,43 @@
 
 //The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-//IN THE SOFTWARE.
+
 
 #include <sstream>
 #include <string>
 #include <iostream>
 #include <highgui.h>
 #include <cv.h>
+#include <time.h>
+#include <sys/time.h>
 
 using namespace cv;
 //initial min and max HSV filter values.
 //these will be changed using trackbars
-int H_MIN = 0;
-int H_MAX = 256;
-int S_MIN = 0;
-int S_MAX = 256;
-int V_MIN = 0;
-int V_MAX = 256;
+//int H_MIN = 0;
+//int H_MAX = 256;
+//int S_MIN = 0;
+//int S_MAX = 256;
+//int V_MIN = 0;
+//int V_MAX = 256;
+
+int H_MIN = 2;
+int H_MAX = 10;
+int S_MIN = 121;
+int S_MAX = 173;
+int V_MIN = 135;
+int V_MAX = 255;
+
 //default capture width and height
-const int FRAME_WIDTH = 640;
-const int FRAME_HEIGHT = 480;
+const int FRAME_WIDTH = 320;
+const int FRAME_HEIGHT = 640;
+
+const float FRAME_WIDTH_M = 1.115;
+const float FRAME_HEIGHT_M = 2.23;
+const float TOTAL_LENGTH = 3.68;
+
+float metersPerPixel = FRAME_WIDTH_M / FRAME_WIDTH;
+
 //max number of objects to be detected in frame
 const int MAX_NUM_OBJECTS=50;
 //minimum and maximum object area
@@ -42,23 +56,40 @@ const string windowName1 = "HSV Image";
 const string windowName2 = "Thresholded Image";
 const string windowName3 = "After Morphological Operations";
 const string trackbarWindowName = "Trackbars";
+
+int x_prev = 0;
+int y_prev = 0;
+float vx = 0;
+float vy = 0;
+float vx_m = 0;
+
+struct timeval start, prev_frame_time;
+float dt = 0;
+bool kickInProgress = false;
+
 void on_trackbar( int, void* )
 {//This function gets called whenever a
 	// trackbar position is changed
-  
-  
-  
-  
-  
 }
-string intToString(int number){
-  
+
+string intToString(int number)
+{
   
 	std::stringstream ss;
 	ss << number;
 	return ss.str();
 }
-void createTrackbars(){
+
+string floatToString(float number)
+{
+  
+	std::stringstream ss;
+	ss << number;
+	return ss.str();
+}
+
+void createTrackbars()
+{
 	//create window for trackbars
   
   
@@ -85,7 +116,9 @@ void createTrackbars(){
   
   
 }
-void drawObject(int x, int y,Mat &frame){
+
+void drawObject(int x, int y,Mat &frame)
+{
   
 	//use some of the openCV drawing functions to draw crosshairs
 	//on your tracked image!
@@ -95,10 +128,14 @@ void drawObject(int x, int y,Mat &frame){
 	line(frame,Point(x-5,y),Point(x-25,y),Scalar(0,255,0),2);
 	line(frame,Point(x+5,y),Point(x+25,y),Scalar(0,255,0),2);
   
-	putText(frame,intToString(x)+","+intToString(y),Point(x,y+30),1,1,Scalar(0,255,0),2);
+  line(frame, Point(x,y), Point(x+vx,y+vy), Scalar(0,255,0), 2);
+  
+	putText(frame,intToString(x)+","+intToString(y) + " -- " + floatToString(vx)+","+floatToString(vy) + "--" + floatToString(dt),
+          Point(x,y+30),1,1,Scalar(0,255,0),2);
   
 }
-void morphOps(Mat &thresh){
+void morphOps(Mat &thresh)
+{
   
 	//create structuring element that will be used to "dilate" and "erode" image.
 	//the element chosen here is a 3px by 3px rectangle
@@ -110,14 +147,13 @@ void morphOps(Mat &thresh){
 	erode(thresh,thresh,erodeElement);
 	erode(thresh,thresh,erodeElement);
   
-  
 	dilate(thresh,thresh,dilateElement);
 	dilate(thresh,thresh,dilateElement);
-	
-  
   
 }
-void trackFilteredObject(int &x, int &y, Mat threshold, Mat &cameraFeed){
+
+bool trackFilteredObject(int &x, int &y, Mat threshold, Mat &cameraFeed)
+{
   
 	Mat temp;
 	threshold.copyTo(temp);
@@ -129,11 +165,14 @@ void trackFilteredObject(int &x, int &y, Mat threshold, Mat &cameraFeed){
 	//use moments method to find our filtered object
 	double refArea = 0;
 	bool objectFound = false;
-	if (hierarchy.size() > 0) {
-		int numObjects = hierarchy.size();
+	if (hierarchy.size() > 0)
+  {
+		int numObjects = (int) hierarchy.size();
     //if number of objects greater than MAX_NUM_OBJECTS we have a noisy filter
-    if(numObjects<MAX_NUM_OBJECTS){
-			for (int index = 0; index >= 0; index = hierarchy[index][0]) {
+    if(numObjects<MAX_NUM_OBJECTS)
+    {
+			for (int index = 0; index >= 0; index = hierarchy[index][0])
+      {
         
 				Moments moment = moments((cv::Mat)contours[index]);
 				double area = moment.m00;
@@ -142,24 +181,35 @@ void trackFilteredObject(int &x, int &y, Mat threshold, Mat &cameraFeed){
 				//if the area is the same as the 3/2 of the image size, probably just a bad filter
 				//we only want the object with the largest area so we safe a reference area each
 				//iteration and compare it to the area in the next iteration.
-        if(area>MIN_OBJECT_AREA && area<MAX_OBJECT_AREA && area>refArea){
+        if(area>MIN_OBJECT_AREA && area<MAX_OBJECT_AREA && area>refArea)
+        {
 					x = moment.m10/area;
 					y = moment.m01/area;
 					objectFound = true;
           
-				}else objectFound = false;
+				}
+        else objectFound = false;
         
         
 			}
 			//let user know you found an object
-			if(objectFound ==true){
+			if(objectFound ==true)
+      {
 				putText(cameraFeed,"Tracking Object",Point(0,50),2,1,Scalar(0,255,0),2);
 				//draw object location on screen
-				drawObject(x,y,cameraFeed);}
+				drawObject(x,y,cameraFeed);
+      }
+      else
+        putText(cameraFeed,"No objects of correct size",Point(0,50),2,1,Scalar(255,0,0),2);
       
-		}else putText(cameraFeed,"TOO MUCH NOISE! ADJUST FILTER",Point(0,50),1,2,Scalar(0,0,255),2);
+		}
+    else
+      putText(cameraFeed,"TOO MUCH NOISE! ADJUST FILTER",Point(0,50),1,2,Scalar(0,0,255),2);
 	}
+  
+  return objectFound;
 }
+
 int main(int argc, char* argv[])
 {
 	//some boolean variables for different functionality within this
@@ -185,7 +235,13 @@ int main(int argc, char* argv[])
 	capture.set(CV_CAP_PROP_FRAME_HEIGHT,FRAME_HEIGHT);
 	//start an infinite loop where webcam feed is copied to cameraFeed matrix
 	//all of our operations will be performed within this loop
+  
+  gettimeofday(&start, NULL);
+  prev_frame_time = start;
+  int frame_num = 0;
+  
 	while(1){
+    frame_num++;
 		//store image to matrix
 		capture.read(cameraFeed);
 		//convert frame from BGR to HSV colorspace
@@ -201,7 +257,43 @@ int main(int argc, char* argv[])
 		//this function will return the x and y coordinates of the
 		//filtered object
 		if(trackObjects)
-			trackFilteredObject(x,y,threshold,cameraFeed);
+    {
+      
+			if (trackFilteredObject(x,y,threshold,cameraFeed))
+      {
+        
+        struct timeval frame_time;
+        gettimeofday(&frame_time, NULL);
+        
+        dt = (frame_time.tv_sec + .000001*frame_time.tv_usec) -
+             (prev_frame_time.tv_sec + .000001*prev_frame_time.tv_usec);
+        
+        prev_frame_time = frame_time;
+        
+        float filter = 0;
+        
+        vx = filter*vx + (1 - filter)*(x - x_prev)/dt;
+        vy = filter*vy + (1 - filter)*(y - y_prev)/dt;
+        
+        float y_m = (FRAME_HEIGHT-y)*metersPerPixel;
+        float vy_m = vy*metersPerPixel;
+        
+        float t = (TOTAL_LENGTH - y_m) / -vy_m;
+        
+        float vfilter = 0;
+        
+        float x_m = x*metersPerPixel;
+        vx_m = vfilter*vx_m + (1-vfilter)*vx*metersPerPixel;
+        
+        float x_f = x_m + vx_m*t;
+        
+        if (-vy > 20)
+          printf("%d: x=(%d,%d)\t v=(%.2f,%.2f)\t y,vy=%.02f,%.02f\t xf=%.02fm @ %.02fs\n", frame_num, x,y, vx,vy, y_m,vy_m, x_f, t);
+        
+        x_prev = x;
+        y_prev = y;
+      }
+    }
     
 		//show frames
 		imshow(windowName2,threshold);
@@ -215,9 +307,46 @@ int main(int argc, char* argv[])
 	}
   
   
-  
-  
-  
-  
 	return 0;
 }
+
+
+
+/*
+ float vx_new = filter*vx + (1 - filter)*(x - x_prev)/dt;
+ float vy_new = filter*vy + (1 - filter)*(y - y_prev)/dt;
+ 
+ //        float ax_m = (vx_new - vx)/dt * metersPerPixel;
+ //        float ay_m = (vy_new - vy)/dt * metersPerPixel;
+ 
+ vx = vx_new;
+ vy = vy_new;
+ 
+ float y_m = (FRAME_HEIGHT-y)*metersPerPixel;
+ float vy_m = vy*metersPerPixel;
+ 
+ float a = .5*ay_m;
+ float b = vy_m;
+ float c = y_m - TOTAL_LENGTH;
+ float delta = sqrt(b*b - 4*a*c);
+ 
+ float t1 = (-b+delta)/(2*a);
+ float t2 = (-b-delta)/(2*a);
+ 
+ float t;
+ if (t1 > 0)
+ t = t1;
+ else if (t2 > 0)
+ t = t2;
+ else
+ t = 0;
+ 
+ float vfilter = 0;
+ 
+ float x_m = x*metersPerPixel;
+ vx_m = vfilter*vx_m + (1-vfilter)*vx*metersPerPixel;
+ 
+ float x_f = x_m + vx_m*t + .5*ax_m*t*t;
+ 
+ if (-vy > 20)
+ printf("%d: x=(%d,%d)\t v=(%.2f,%.2f)\t y,vy=%.02f,%.02f\t xf=%.02fm @ %.02fs\t a=(%.02f, %.02f)\n", frame_num, x,y, vx,vy, y_m,vy_m, x_f, t, ax_m,ay_m);*/
