@@ -29,10 +29,9 @@
 		630D8FA6174FEF58009E2B0F /* RobotCom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F99174FEF58009E2B0F /* RobotCom.cpp */; };
 		630D8FA7174FEF58009E2B0F /* unitMsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F9B174FEF58009E2B0F /* unitMsg.cpp */; };
 		630D9009174FF6D9009E2B0F /* libmatrix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 630D9008174FF6D9009E2B0F /* libmatrix.a */; };
+		630D900B174FF918009E2B0F /* Vision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D900A174FF918009E2B0F /* Vision.cpp */; };
 		637187E31744182E002B4C70 /* libcvblob.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637187E21744182E002B4C70 /* libcvblob.dylib */; };
 		637187E9174494B6002B4C70 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637187E8174494B6002B4C70 /* libc++.dylib */; };
-		637187EB17449B1E002B4C70 /* Vision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 637187EA17449B1E002B4C70 /* Vision.cpp */; };
-		63DC5DD717440AD80008115B /* Goalie_Vision.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63DC5DD617440AD80008115B /* Goalie_Vision.1 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,7 +41,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				63DC5DD717440AD80008115B /* Goalie_Vision.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -76,11 +74,11 @@
 		630D8F9B174FEF58009E2B0F /* unitMsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unitMsg.cpp; sourceTree = "<group>"; };
 		630D8F9C174FEF58009E2B0F /* unitMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unitMsg.h; sourceTree = "<group>"; };
 		630D9008174FF6D9009E2B0F /* libmatrix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmatrix.a; path = include/libmatrix.a; sourceTree = "<group>"; };
+		630D900A174FF918009E2B0F /* Vision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vision.cpp; path = Vision/Vision.cpp; sourceTree = SOURCE_ROOT; };
+		630D900C174FF920009E2B0F /* Vision.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; name = Vision.1; path = Vision/Vision.1; sourceTree = SOURCE_ROOT; };
 		637187E21744182E002B4C70 /* libcvblob.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcvblob.dylib; path = /usr/local/lib/libcvblob.dylib; sourceTree = "<absolute>"; };
 		637187E8174494B6002B4C70 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		637187EA17449B1E002B4C70 /* Vision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vision.cpp; sourceTree = "<group>"; };
 		63DC5DD117440AD80008115B /* keep3r */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = keep3r; sourceTree = BUILT_PRODUCTS_DIR; };
-		63DC5DD617440AD80008115B /* Goalie_Vision.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Goalie_Vision.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,8 +176,8 @@
 		63DC5DD317440AD80008115B /* Vision */ = {
 			isa = PBXGroup;
 			children = (
-				637187EA17449B1E002B4C70 /* Vision.cpp */,
-				63DC5DD617440AD80008115B /* Goalie_Vision.1 */,
+				630D900C174FF920009E2B0F /* Vision.1 */,
+				630D900A174FF918009E2B0F /* Vision.cpp */,
 			);
 			name = Vision;
 			path = "Goalie Vision";
@@ -236,11 +234,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				637187EB17449B1E002B4C70 /* Vision.cpp in Sources */,
 				630D8FA4174FEF58009E2B0F /* ExampleUsage.cpp in Sources */,
 				630D8FA5174FEF58009E2B0F /* main.cpp in Sources */,
 				630D8FA6174FEF58009E2B0F /* RobotCom.cpp in Sources */,
 				630D8FA7174FEF58009E2B0F /* unitMsg.cpp in Sources */,
+				630D900B174FF918009E2B0F /* Vision.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
