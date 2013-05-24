@@ -1,6 +1,6 @@
 //objectTrackingTutorial.cpp
 
-//Original tracking code written by  Kyle Hounslow 2013, from http://www.youtube.com/watch?v=bSeFrPrqZ2A
+//Original tracking code written by Kyle Hounslow 2013, from http://www.youtube.com/watch?v=bSeFrPrqZ2A
 
 //Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software")
 //, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -256,10 +256,14 @@ int main(int argc, char* argv[])
 		//and emphasize the filtered object(s)
 		if(useMorphOps)
       morphOps(threshold);
-		//pass in thresholded frame to our object tracking function
+		
+        
+        
+        //pass in thresholded frame to our object tracking function
 		//this function will return the x and y coordinates of the
 		//filtered object
-		if(trackObjects)
+		
+        if(trackObjects)
     {
       
 			if (trackFilteredObject(x,y,threshold,cameraFeed))
@@ -288,6 +292,8 @@ int main(int argc, char* argv[])
         
         float t = 0;
         float x_f = 0;
+          
+        // not used for now
         if (ACCELERATION)
         {
           float afilter = kickInProgress ? .5 : 0;
@@ -311,6 +317,8 @@ int main(int argc, char* argv[])
           
           x_f = x_m + vx_m*t + .5*ax_m*t*t;
         }
+          
+          
         else
         {
           t = (TOTAL_LENGTH - y_m) / -vy_m;

@@ -24,7 +24,6 @@
 		630040D817440B2C0018893A /* libopencv_ts.2.4.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 630040C717440B2C0018893A /* libopencv_ts.2.4.3.dylib */; };
 		630040D917440B2C0018893A /* libopencv_video.2.4.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 630040C817440B2C0018893A /* libopencv_video.2.4.3.dylib */; };
 		630040DA17440B2C0018893A /* libopencv_videostab.2.4.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 630040C917440B2C0018893A /* libopencv_videostab.2.4.3.dylib */; };
-		637187E31744182E002B4C70 /* libcvblob.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637187E21744182E002B4C70 /* libcvblob.dylib */; };
 		637187E9174494B6002B4C70 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637187E8174494B6002B4C70 /* libc++.dylib */; };
 		637187EB17449B1E002B4C70 /* objectTrackingTut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 637187EA17449B1E002B4C70 /* objectTrackingTut.cpp */; };
 		63DC5DD717440AD80008115B /* Goalie_Vision.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63DC5DD617440AD80008115B /* Goalie_Vision.1 */; };
@@ -61,7 +60,6 @@
 		630040C717440B2C0018893A /* libopencv_ts.2.4.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_ts.2.4.3.dylib; path = /usr/local/lib/libopencv_ts.2.4.3.dylib; sourceTree = "<absolute>"; };
 		630040C817440B2C0018893A /* libopencv_video.2.4.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_video.2.4.3.dylib; path = /usr/local/lib/libopencv_video.2.4.3.dylib; sourceTree = "<absolute>"; };
 		630040C917440B2C0018893A /* libopencv_videostab.2.4.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_videostab.2.4.3.dylib; path = /usr/local/lib/libopencv_videostab.2.4.3.dylib; sourceTree = "<absolute>"; };
-		637187E21744182E002B4C70 /* libcvblob.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcvblob.dylib; path = /usr/local/lib/libcvblob.dylib; sourceTree = "<absolute>"; };
 		637187E8174494B6002B4C70 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		637187EA17449B1E002B4C70 /* objectTrackingTut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = objectTrackingTut.cpp; sourceTree = "<group>"; };
 		63DC5DD117440AD80008115B /* Goalie Vision */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Goalie Vision"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,7 +89,6 @@
 				630040D817440B2C0018893A /* libopencv_ts.2.4.3.dylib in Frameworks */,
 				630040D917440B2C0018893A /* libopencv_video.2.4.3.dylib in Frameworks */,
 				630040DA17440B2C0018893A /* libopencv_videostab.2.4.3.dylib in Frameworks */,
-				637187E31744182E002B4C70 /* libcvblob.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +98,6 @@
 		630040DB17440B330018893A /* libopencv */ = {
 			isa = PBXGroup;
 			children = (
-				637187E21744182E002B4C70 /* libcvblob.dylib */,
 				637187E8174494B6002B4C70 /* libc++.dylib */,
 				630040B917440B2C0018893A /* libopencv_calib3d.2.4.3.dylib */,
 				630040BA17440B2C0018893A /* libopencv_contrib.2.4.3.dylib */,
