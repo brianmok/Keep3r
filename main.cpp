@@ -2,9 +2,17 @@
 #include <iostream>
 #include "RobotCom.h"
 #include "PrVector.h"
+#include "Vision.h"
 
-int main3(int argc, char** argv)
+int main(int argc, char** argv)
 {
+  
+  initVision();
+  while (1)
+  {
+    float x_f = processFrame();
+  }
+  
 	std::cout<<"This program tests the network connectivity between the client simulator and the servo server"<<std::endl;
 
 /****************************************/
@@ -33,7 +41,7 @@ int main3(int argc, char** argv)
 
 	delete test_robot;
 
-	std::cout<<"Successfully disconnected!"<<std::endl;	
+	std::cout<<"Successfully disconnected!"<<std::endl;
 
   return 0;
 }

@@ -25,11 +25,11 @@
 		630040D917440B2C0018893A /* libopencv_video.2.4.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 630040C817440B2C0018893A /* libopencv_video.2.4.3.dylib */; };
 		630040DA17440B2C0018893A /* libopencv_videostab.2.4.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 630040C917440B2C0018893A /* libopencv_videostab.2.4.3.dylib */; };
 		630D8FA4174FEF58009E2B0F /* ExampleUsage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F95174FEF58009E2B0F /* ExampleUsage.cpp */; };
-		630D8FA5174FEF58009E2B0F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F96174FEF58009E2B0F /* main.cpp */; };
 		630D8FA6174FEF58009E2B0F /* RobotCom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F99174FEF58009E2B0F /* RobotCom.cpp */; };
 		630D8FA7174FEF58009E2B0F /* unitMsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F9B174FEF58009E2B0F /* unitMsg.cpp */; };
 		630D9009174FF6D9009E2B0F /* libmatrix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 630D9008174FF6D9009E2B0F /* libmatrix.a */; };
 		630D900B174FF918009E2B0F /* Vision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D900A174FF918009E2B0F /* Vision.cpp */; };
+		630D900F17500293009E2B0F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D900E17500293009E2B0F /* main.cpp */; };
 		637187E31744182E002B4C70 /* libcvblob.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637187E21744182E002B4C70 /* libcvblob.dylib */; };
 		637187E9174494B6002B4C70 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637187E8174494B6002B4C70 /* libc++.dylib */; };
 /* End PBXBuildFile section */
@@ -66,7 +66,6 @@
 		630040C917440B2C0018893A /* libopencv_videostab.2.4.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_videostab.2.4.3.dylib; path = /usr/local/lib/libopencv_videostab.2.4.3.dylib; sourceTree = "<absolute>"; };
 		630D8F94174FEF58009E2B0F /* cs225.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs225.h; sourceTree = "<group>"; };
 		630D8F95174FEF58009E2B0F /* ExampleUsage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExampleUsage.cpp; sourceTree = "<group>"; };
-		630D8F96174FEF58009E2B0F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		630D8F97174FEF58009E2B0F /* PrGlobalDefn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrGlobalDefn.h; sourceTree = "<group>"; };
 		630D8F98174FEF58009E2B0F /* PrNetworkDefn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrNetworkDefn.h; sourceTree = "<group>"; };
 		630D8F99174FEF58009E2B0F /* RobotCom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RobotCom.cpp; sourceTree = "<group>"; };
@@ -76,6 +75,8 @@
 		630D9008174FF6D9009E2B0F /* libmatrix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmatrix.a; path = include/libmatrix.a; sourceTree = "<group>"; };
 		630D900A174FF918009E2B0F /* Vision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vision.cpp; path = Vision/Vision.cpp; sourceTree = SOURCE_ROOT; };
 		630D900C174FF920009E2B0F /* Vision.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; name = Vision.1; path = Vision/Vision.1; sourceTree = SOURCE_ROOT; };
+		630D900D1750022C009E2B0F /* Vision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vision.h; path = Vision/Vision.h; sourceTree = SOURCE_ROOT; };
+		630D900E17500293009E2B0F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		637187E21744182E002B4C70 /* libcvblob.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcvblob.dylib; path = /usr/local/lib/libcvblob.dylib; sourceTree = "<absolute>"; };
 		637187E8174494B6002B4C70 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		63DC5DD117440AD80008115B /* keep3r */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = keep3r; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,7 +145,6 @@
 			children = (
 				630D8F94174FEF58009E2B0F /* cs225.h */,
 				630D8F95174FEF58009E2B0F /* ExampleUsage.cpp */,
-				630D8F96174FEF58009E2B0F /* main.cpp */,
 				630D8F97174FEF58009E2B0F /* PrGlobalDefn.h */,
 				630D8F98174FEF58009E2B0F /* PrNetworkDefn.h */,
 				630D8F99174FEF58009E2B0F /* RobotCom.cpp */,
@@ -161,6 +161,7 @@
 				630040DB17440B330018893A /* opencvlib */,
 				630D8F6B174FEF57009E2B0F /* Robot */,
 				63DC5DD317440AD80008115B /* Vision */,
+				630D900E17500293009E2B0F /* main.cpp */,
 				63DC5DD217440AD80008115B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -178,6 +179,7 @@
 			children = (
 				630D900C174FF920009E2B0F /* Vision.1 */,
 				630D900A174FF918009E2B0F /* Vision.cpp */,
+				630D900D1750022C009E2B0F /* Vision.h */,
 			);
 			name = Vision;
 			path = "Goalie Vision";
@@ -235,10 +237,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				630D8FA4174FEF58009E2B0F /* ExampleUsage.cpp in Sources */,
-				630D8FA5174FEF58009E2B0F /* main.cpp in Sources */,
 				630D8FA6174FEF58009E2B0F /* RobotCom.cpp in Sources */,
 				630D8FA7174FEF58009E2B0F /* unitMsg.cpp in Sources */,
 				630D900B174FF918009E2B0F /* Vision.cpp in Sources */,
+				630D900F17500293009E2B0F /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
