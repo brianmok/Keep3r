@@ -24,9 +24,14 @@
 		630040D817440B2C0018893A /* libopencv_ts.2.4.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 630040C717440B2C0018893A /* libopencv_ts.2.4.3.dylib */; };
 		630040D917440B2C0018893A /* libopencv_video.2.4.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 630040C817440B2C0018893A /* libopencv_video.2.4.3.dylib */; };
 		630040DA17440B2C0018893A /* libopencv_videostab.2.4.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 630040C917440B2C0018893A /* libopencv_videostab.2.4.3.dylib */; };
+		630D8FA4174FEF58009E2B0F /* ExampleUsage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F95174FEF58009E2B0F /* ExampleUsage.cpp */; };
+		630D8FA5174FEF58009E2B0F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F96174FEF58009E2B0F /* main.cpp */; };
+		630D8FA6174FEF58009E2B0F /* RobotCom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F99174FEF58009E2B0F /* RobotCom.cpp */; };
+		630D8FA7174FEF58009E2B0F /* unitMsg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 630D8F9B174FEF58009E2B0F /* unitMsg.cpp */; };
+		630D9009174FF6D9009E2B0F /* libmatrix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 630D9008174FF6D9009E2B0F /* libmatrix.a */; };
 		637187E31744182E002B4C70 /* libcvblob.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637187E21744182E002B4C70 /* libcvblob.dylib */; };
 		637187E9174494B6002B4C70 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 637187E8174494B6002B4C70 /* libc++.dylib */; };
-		637187EB17449B1E002B4C70 /* objectTrackingTut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 637187EA17449B1E002B4C70 /* objectTrackingTut.cpp */; };
+		637187EB17449B1E002B4C70 /* Vision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 637187EA17449B1E002B4C70 /* Vision.cpp */; };
 		63DC5DD717440AD80008115B /* Goalie_Vision.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63DC5DD617440AD80008115B /* Goalie_Vision.1 */; };
 /* End PBXBuildFile section */
 
@@ -61,10 +66,20 @@
 		630040C717440B2C0018893A /* libopencv_ts.2.4.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_ts.2.4.3.dylib; path = /usr/local/lib/libopencv_ts.2.4.3.dylib; sourceTree = "<absolute>"; };
 		630040C817440B2C0018893A /* libopencv_video.2.4.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_video.2.4.3.dylib; path = /usr/local/lib/libopencv_video.2.4.3.dylib; sourceTree = "<absolute>"; };
 		630040C917440B2C0018893A /* libopencv_videostab.2.4.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_videostab.2.4.3.dylib; path = /usr/local/lib/libopencv_videostab.2.4.3.dylib; sourceTree = "<absolute>"; };
+		630D8F94174FEF58009E2B0F /* cs225.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs225.h; sourceTree = "<group>"; };
+		630D8F95174FEF58009E2B0F /* ExampleUsage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExampleUsage.cpp; sourceTree = "<group>"; };
+		630D8F96174FEF58009E2B0F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		630D8F97174FEF58009E2B0F /* PrGlobalDefn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrGlobalDefn.h; sourceTree = "<group>"; };
+		630D8F98174FEF58009E2B0F /* PrNetworkDefn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrNetworkDefn.h; sourceTree = "<group>"; };
+		630D8F99174FEF58009E2B0F /* RobotCom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RobotCom.cpp; sourceTree = "<group>"; };
+		630D8F9A174FEF58009E2B0F /* RobotCom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RobotCom.h; sourceTree = "<group>"; };
+		630D8F9B174FEF58009E2B0F /* unitMsg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unitMsg.cpp; sourceTree = "<group>"; };
+		630D8F9C174FEF58009E2B0F /* unitMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unitMsg.h; sourceTree = "<group>"; };
+		630D9008174FF6D9009E2B0F /* libmatrix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmatrix.a; path = include/libmatrix.a; sourceTree = "<group>"; };
 		637187E21744182E002B4C70 /* libcvblob.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcvblob.dylib; path = /usr/local/lib/libcvblob.dylib; sourceTree = "<absolute>"; };
 		637187E8174494B6002B4C70 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		637187EA17449B1E002B4C70 /* objectTrackingTut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = objectTrackingTut.cpp; sourceTree = "<group>"; };
-		63DC5DD117440AD80008115B /* Goalie Vision */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Goalie Vision"; sourceTree = BUILT_PRODUCTS_DIR; };
+		637187EA17449B1E002B4C70 /* Vision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vision.cpp; sourceTree = "<group>"; };
+		63DC5DD117440AD80008115B /* keep3r */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = keep3r; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DC5DD617440AD80008115B /* Goalie_Vision.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Goalie_Vision.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,15 +107,17 @@
 				630040D917440B2C0018893A /* libopencv_video.2.4.3.dylib in Frameworks */,
 				630040DA17440B2C0018893A /* libopencv_videostab.2.4.3.dylib in Frameworks */,
 				637187E31744182E002B4C70 /* libcvblob.dylib in Frameworks */,
+				630D9009174FF6D9009E2B0F /* libmatrix.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		630040DB17440B330018893A /* libopencv */ = {
+		630040DB17440B330018893A /* opencvlib */ = {
 			isa = PBXGroup;
 			children = (
+				630D9008174FF6D9009E2B0F /* libmatrix.a */,
 				637187E21744182E002B4C70 /* libcvblob.dylib */,
 				637187E8174494B6002B4C70 /* libc++.dylib */,
 				630040B917440B2C0018893A /* libopencv_calib3d.2.4.3.dylib */,
@@ -121,14 +138,31 @@
 				630040C817440B2C0018893A /* libopencv_video.2.4.3.dylib */,
 				630040C917440B2C0018893A /* libopencv_videostab.2.4.3.dylib */,
 			);
-			name = libopencv;
+			name = opencvlib;
+			sourceTree = "<group>";
+		};
+		630D8F6B174FEF57009E2B0F /* Robot */ = {
+			isa = PBXGroup;
+			children = (
+				630D8F94174FEF58009E2B0F /* cs225.h */,
+				630D8F95174FEF58009E2B0F /* ExampleUsage.cpp */,
+				630D8F96174FEF58009E2B0F /* main.cpp */,
+				630D8F97174FEF58009E2B0F /* PrGlobalDefn.h */,
+				630D8F98174FEF58009E2B0F /* PrNetworkDefn.h */,
+				630D8F99174FEF58009E2B0F /* RobotCom.cpp */,
+				630D8F9A174FEF58009E2B0F /* RobotCom.h */,
+				630D8F9B174FEF58009E2B0F /* unitMsg.cpp */,
+				630D8F9C174FEF58009E2B0F /* unitMsg.h */,
+			);
+			path = Robot;
 			sourceTree = "<group>";
 		};
 		63DC5DC817440AD80008115B = {
 			isa = PBXGroup;
 			children = (
-				630040DB17440B330018893A /* libopencv */,
-				63DC5DD317440AD80008115B /* Goalie Vision */,
+				630040DB17440B330018893A /* opencvlib */,
+				630D8F6B174FEF57009E2B0F /* Robot */,
+				63DC5DD317440AD80008115B /* Vision */,
 				63DC5DD217440AD80008115B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -136,26 +170,27 @@
 		63DC5DD217440AD80008115B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				63DC5DD117440AD80008115B /* Goalie Vision */,
+				63DC5DD117440AD80008115B /* keep3r */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		63DC5DD317440AD80008115B /* Goalie Vision */ = {
+		63DC5DD317440AD80008115B /* Vision */ = {
 			isa = PBXGroup;
 			children = (
-				637187EA17449B1E002B4C70 /* objectTrackingTut.cpp */,
+				637187EA17449B1E002B4C70 /* Vision.cpp */,
 				63DC5DD617440AD80008115B /* Goalie_Vision.1 */,
 			);
+			name = Vision;
 			path = "Goalie Vision";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		63DC5DD017440AD80008115B /* Goalie Vision */ = {
+		63DC5DD017440AD80008115B /* keep3r */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 63DC5DDA17440AD80008115B /* Build configuration list for PBXNativeTarget "Goalie Vision" */;
+			buildConfigurationList = 63DC5DDA17440AD80008115B /* Build configuration list for PBXNativeTarget "keep3r" */;
 			buildPhases = (
 				63DC5DCD17440AD80008115B /* Sources */,
 				63DC5DCE17440AD80008115B /* Frameworks */,
@@ -165,9 +200,9 @@
 			);
 			dependencies = (
 			);
-			name = "Goalie Vision";
+			name = keep3r;
 			productName = "Goalie Vision";
-			productReference = 63DC5DD117440AD80008115B /* Goalie Vision */;
+			productReference = 63DC5DD117440AD80008115B /* keep3r */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -179,7 +214,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "David Saltzman";
 			};
-			buildConfigurationList = 63DC5DCC17440AD80008115B /* Build configuration list for PBXProject "Goalie Vision" */;
+			buildConfigurationList = 63DC5DCC17440AD80008115B /* Build configuration list for PBXProject "keep3r" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -191,7 +226,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				63DC5DD017440AD80008115B /* Goalie Vision */,
+				63DC5DD017440AD80008115B /* keep3r */,
 			);
 		};
 /* End PBXProject section */
@@ -201,7 +236,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				637187EB17449B1E002B4C70 /* objectTrackingTut.cpp in Sources */,
+				637187EB17449B1E002B4C70 /* Vision.cpp in Sources */,
+				630D8FA4174FEF58009E2B0F /* ExampleUsage.cpp in Sources */,
+				630D8FA5174FEF58009E2B0F /* main.cpp in Sources */,
+				630D8FA6174FEF58009E2B0F /* RobotCom.cpp in Sources */,
+				630D8FA7174FEF58009E2B0F /* unitMsg.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,9 +311,15 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
-				HEADER_SEARCH_PATHS = "/usr/local/include/**";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/include/**",
+					"\"$(SRCROOT)/include\"/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					"$(SRCROOT)/**",
+				);
+				PRODUCT_NAME = keep3r;
 			};
 			name = Debug;
 		};
@@ -283,16 +328,22 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
-				HEADER_SEARCH_PATHS = "/usr/local/include/**";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/include/**",
+					"\"$(SRCROOT)/include\"/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					"$(SRCROOT)/**",
+				);
+				PRODUCT_NAME = keep3r;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		63DC5DCC17440AD80008115B /* Build configuration list for PBXProject "Goalie Vision" */ = {
+		63DC5DCC17440AD80008115B /* Build configuration list for PBXProject "keep3r" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63DC5DD817440AD80008115B /* Debug */,
@@ -301,7 +352,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		63DC5DDA17440AD80008115B /* Build configuration list for PBXNativeTarget "Goalie Vision" */ = {
+		63DC5DDA17440AD80008115B /* Build configuration list for PBXNativeTarget "keep3r" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63DC5DDB17440AD80008115B /* Debug */,
