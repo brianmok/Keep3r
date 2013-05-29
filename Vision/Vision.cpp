@@ -37,16 +37,17 @@ int S_MAX = 102;
 int V_MIN = 191;
 int V_MAX = 255;
 
-//default capture width and height
+#define V_THRESHOLD 100 /* minimum velocity for a kick */
+#define FRAME_WIDTH 640
+#define FRAME_HEIGHT 480
+#define FRAME_WIDTH_M 6.4
+#define FRAME_HEIGHT_M 4.8
+#define LEFT_POLE 160
+#define RIGHT_POLE 320 
+#define BALL_DIA 10
+#define POLE_DIA 2
 
-const int FRAME_WIDTH = 640;
-const int FRAME_HEIGHT = 480;
-const float FRAME_WIDTH_M = 6.4;
-const float FRAME_HEIGHT_M = 4.8;
-const float TOTAL_LENGTH = 6;
 float metersPerPixel = FRAME_WIDTH_M / FRAME_WIDTH;
-
-const int BALL_DIA = 10;
 
 //max number of objects to be detected in frame
 const int MAX_NUM_OBJECTS= 50;
@@ -280,7 +281,7 @@ void analysis() {
     y_f = y_m + vy_m * t;
     
     // fast enough to potentially be a kick
-    if (-vx > 20)  {
+    if ((-vx > V_THRESHOLD) && (abs(vy) < -vx))  {
         if (!kickInProgress)
             kickInProgress = true;
         printf("%d: x=(%d,%d)\t v=(%.2f,%.2f)\t y,vy=%.02f,%.02f\t yf=%.02fm @ %.02fs\n", frame_num, x, y, vx, vy, y_m, vy_m, y_f, t);
@@ -311,6 +312,8 @@ void showFrames() {
     if (kickInProgress) {
         circle(cameraFeed, Point(13, y_f / metersPerPixel), BALL_DIA, Scalar(0, 0, 255), 2);
     }
+    circle(cameraFeed, Point(13, LEFT_POLE), POLE_DIA, Scalar(255, 0, 0), 2);
+    circle(cameraFeed, Point(13, RIGHT_POLE), POLE_DIA, Scalar(255, 0, 0), 2);
     imshow(windowName,cameraFeed);
     imshow(windowName1,HSVimage);
     imshow(windowName2,threshimage);
