@@ -7,6 +7,6 @@
 #define keep3r_Header_h
 
 void initVision();
-float processFrame();
+float processFrame(bool &kickInProgress);
 
 #endif

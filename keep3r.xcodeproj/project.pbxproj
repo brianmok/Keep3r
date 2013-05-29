@@ -157,8 +157,8 @@
 				630040DB17440B330018893A /* opencvlib */,
 				630D8F6B174FEF57009E2B0F /* Robot */,
 				63DC5DD317440AD80008115B /* Vision */,
-				630D900E17500293009E2B0F /* main.cpp */,
 				63DC5DD217440AD80008115B /* Products */,
+				630D900E17500293009E2B0F /* main.cpp */,
 			);
 			sourceTree = "<group>";
 		};
