@@ -5,24 +5,43 @@
 
 int const LEFT_POLE = 160;
 int const RIGHT_POLE = 320;
+int const GOAL_LINE;
+int const PENALTY_Line;
 float const MPP = 1.0 / 100;
-
+int const SAFETY=0.1*(RIGHT_POLE-LEFT_POLE);
+boolean ReturnKick=false;
 int main(int argc, char** argv) {
     initVision();
     while (1) {
         bool kickInProgress;
         float y_f = processFrame(kickInProgress);
         if (kickInProgress) {
-            if (y_f < RIGHT_POLE * MPP && y_f > LEFT_POLE * MPP) {
-                // operational control to y_f
-                printf("We got it!\n");
+            if (y_f < (RIGHT_POLE+SAFETY) * MPP&& y_f > (LEFT_POLE-SAFETY) * MPP) {
+                // joint  control to y_f
+                //
+                printf("Block It!\n");
+                ReturnKick=true;
+                
             } else {
-                printf("LOL you miss it!\n");
+                printf("LOL You Miss It!\n");
                 // LOL you missed it!
             }
-        } else {
+        } 
+        else {
+        	if (ReturnKick==true)
+        	{
+        	// check if return kick needed, need to pass x and compare to goal line,penalty line
+        	if (y_f < (RIGHT_POLE-SAFETY) * MPP && y_f > (LEFT_POLE+SAFETY) * MPP)
+        	{
+        	// joint control to kick
+        	}
+        	ReturnKick=false;
+        	}
+        	else
+        	{
             printf("reset\n");
-            // reset operational control to zero
+            // reset joint control to zero
+        	}
         }
     }
     // currently, none of the code past here testing the robot actually runs, it just does the vision loop.
